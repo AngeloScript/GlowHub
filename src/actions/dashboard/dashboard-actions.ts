@@ -106,13 +106,13 @@ export async function getDashboardMetrics(): Promise<DashboardMetricsDTO> {
         })
 
         // Puxa o nome cru dos profissionais pra mesclar na UI do ranking
-        const profIds = topProfessionalsRaw.map(p => p.professionalId)
+        const profIds = topProfessionalsRaw.map((p: typeof topProfessionalsRaw[number]) => p.professionalId)
         const users = await db.user.findMany({
             where: { id: { in: profIds } },
             select: { id: true, name: true }
         })
 
-        const topProfessionals = topProfessionalsRaw.map((agg) => {
+        const topProfessionals = topProfessionalsRaw.map((agg: typeof topProfessionalsRaw[number]) => {
             const user = users.find(u => u.id === agg.professionalId)
             return {
                 id: agg.professionalId,

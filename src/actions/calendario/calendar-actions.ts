@@ -41,7 +41,7 @@ export async function getMonthAgenda(startIso: string, endIso: string) {
         }
     })
 
-    const appointments = appointmentsData.map(a => ({
+    const appointments = appointmentsData.map((a: typeof appointmentsData[number]) => ({
         id: a.id,
         title: `${a.customer.name} - ${a.service.name}`,
         professionalName: a.professional.name,

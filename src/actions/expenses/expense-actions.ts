@@ -47,7 +47,7 @@ export async function getExpenses(filters?: {
     })
 
     // Converter Decimal para Number para serialização Server→Client
-    return rawExpenses.map(e => ({
+    return rawExpenses.map((e: typeof rawExpenses[number]) => ({
         id: e.id,
         description: e.description,
         amount: Number(e.amount),
@@ -135,7 +135,7 @@ export async function getExpensesSummary(month: number, year: number) {
     })
 
     // Converter Decimal para Number
-    const expenses = rawExpenses.map(e => ({
+    const expenses = rawExpenses.map((e: typeof rawExpenses[number]) => ({
         id: e.id,
         description: e.description,
         amount: Number(e.amount),
