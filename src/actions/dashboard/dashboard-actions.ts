@@ -113,7 +113,8 @@ export async function getDashboardMetrics(): Promise<DashboardMetricsDTO> {
         })
 
         const topProfessionals = topProfessionalsRaw.map((agg: typeof topProfessionalsRaw[number]) => {
-            const user = users.find(u => u.id === agg.professionalId)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const user = users.find((u: any) => u.id === agg.professionalId)
             return {
                 id: agg.professionalId,
                 name: user?.name || 'Desconhecido',
