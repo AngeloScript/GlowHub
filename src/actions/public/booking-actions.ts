@@ -1,7 +1,7 @@
 'use server'
 
 import { db } from '@/lib/db'
-import { ServiceCategory, Service } from '@prisma/client'
+
 
 // ---------------------------------------------------------------------------
 // 1. GET PUBLIC TENANT INFO
@@ -38,11 +38,14 @@ export async function getPublicTenantInfo(slug: string) {
 
     // Remove categorias sem nenhum serviço e mapeia os serviços para garantir `price: number`
     const activeCategories = categories
-        .filter((c: ServiceCategory & { services: Service[] }) => c.services && c.services.length > 0)
-        .map((c: ServiceCategory & { services: Service[] }) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .filter((c: any) => c.services && c.services.length > 0)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((c: any) => ({
             id: c.id,
             name: c.name,
-            services: c.services.map((s: Service) => ({
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            services: c.services.map((s: any) => ({
                 id: s.id,
                 name: s.name,
                 price: Number(s.price),

@@ -2,7 +2,6 @@
 
 import { db, createTenantClient } from '@/lib/db'
 import { getSession } from '@/lib/auth'
-import { TabStatus } from '@prisma/client'
 
 type CheckoutPaymentInput = {
     method: 'CREDIT' | 'DEBIT' | 'PIX' | 'CASH' | string
@@ -35,7 +34,7 @@ export async function checkoutTab(tabId: string, payments: CheckoutPaymentInput[
         })
 
         if (!tab) return { error: 'Comanda não encontrada' }
-        if (tab.status === TabStatus.CLOSED) return { error: 'Esta comanda já foi fechada.' }
+        if (tab.status === 'CLOSED') return { error: 'Esta comanda já foi fechada.' }
 
         // Validar se o valor pago bate com o total da comanda
         const totalPaid = payments.reduce((acc, curr) => acc + curr.amount, 0)
