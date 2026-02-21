@@ -51,7 +51,8 @@ export async function GET(req: NextRequest) {
         success: true,
         data: {
             ...customer,
-            appointments: customer.appointments.map(a => ({
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            appointments: customer.appointments.map((a: any) => ({
                 ...a,
                 service: { ...a.service, price: Number(a.service.price) },
             })),

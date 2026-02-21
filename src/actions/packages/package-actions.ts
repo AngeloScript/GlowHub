@@ -73,7 +73,8 @@ export async function createPackage(input: CreatePackageInput) {
             price: input.price,
             validityDays: input.validityDays,
             items: {
-                create: input.items.map(item => ({
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                create: input.items.map((item: any) => ({
                     tenantId: session.tenantId,
                     serviceId: item.serviceId,
                     quantity: item.quantity,
@@ -189,7 +190,8 @@ export async function consumePackageSession(
     const packageItem = cp.package.items.find(i => i.serviceId === serviceId)
     if (!packageItem) return { error: 'Este serviço não faz parte do pacote.' }
 
-    const usedCount = cp.usages.filter(u => u.serviceId === serviceId).length
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const usedCount = cp.usages.filter((u: any) => u.serviceId === serviceId).length
     const remaining = packageItem.quantity - usedCount
     if (remaining <= 0) return { error: 'Todas as sessões deste serviço já foram utilizadas.' }
 
@@ -204,7 +206,8 @@ export async function consumePackageSession(
     })
 
     // 4. Calcular comissão rateada (valor do pacote / total de sessões * taxa)
-    const totalSessions = cp.package.items.reduce((sum, i) => sum + i.quantity, 0)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const totalSessions = cp.package.items.reduce((sum: number, i: any) => sum + i.quantity, 0)
     const sessionValue = Number(cp.package.price) / totalSessions
     const commissionAmount = sessionValue * (commissionRate / 100)
 
@@ -298,9 +301,12 @@ export async function getCustomerPackages(customerId: string) {
         usages: Array<{ serviceId: string }>
     }>
 
-    return packages.map(cp => {
-        const itemsWithRemaining = cp.package.items.map(item => {
-            const used = cp.usages.filter(u => u.serviceId === item.serviceId).length
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return packages.map((cp: any) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const itemsWithRemaining = cp.package.items.map((item: any) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const used = cp.usages.filter((u: any) => u.serviceId === item.serviceId).length
             return {
                 serviceName: item.service.name,
                 total: item.quantity,
@@ -309,7 +315,8 @@ export async function getCustomerPackages(customerId: string) {
             }
         })
 
-        const totalSessions = cp.package.items.reduce((s, i) => s + i.quantity, 0)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const totalSessions = cp.package.items.reduce((s: number, i: any) => s + i.quantity, 0)
         const totalUsed = cp.usages.length
 
         return {

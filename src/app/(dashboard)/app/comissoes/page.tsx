@@ -36,10 +36,12 @@ export default async function ComissoesPage() {
     })) as unknown as CommissionDetail[]
 
     // Calcula o total pendente
-    const totalPending = commissions.reduce((sum, item) => sum + Number(item.amount), 0)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const totalPending = commissions.reduce((sum: number, item: any) => sum + Number(item.amount), 0)
 
     // Agrupa saldos Pendentes por Profissional (para a visão gerencial)
-    const groupedByProf = commissions.reduce((acc: Record<string, { name: string, amount: number, count: number }>, curr) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const groupedByProf = commissions.reduce((acc: Record<string, { name: string, amount: number, count: number }>, curr: any) => {
         const profId = curr.professionalId;
         const profName = curr.professional.name;
         if (!acc[profId]) {
@@ -80,7 +82,8 @@ export default async function ComissoesPage() {
                     {Object.keys(groupedByProf).length === 0 ? (
                         <div className="col-span-full p-4 border rounded-md text-muted-foreground bg-muted/30">Nenhum repasse pendente.</div>
                     ) : (
-                        Object.values(groupedByProf).map((prof) => (
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        Object.values(groupedByProf).map((prof: any) => (
                             <div key={prof.name} className="border border-border p-4 rounded-lg bg-white shadow-sm flex flex-col gap-2">
                                 <div className="flex justify-between font-bold text-lg">
                                     <span>{prof.name}</span>
@@ -119,7 +122,8 @@ export default async function ComissoesPage() {
                             {commissions.length === 0 ? (
                                 <tr><td colSpan={5} className="p-8 text-center">Nenhum histórico a exibir.</td></tr>
                             ) : (
-                                commissions.map(c => (
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                commissions.map((c: any) => (
                                     <tr key={c.id} className="border-b border-border hover:bg-muted/10">
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {c.createdAt.toLocaleDateString('pt-BR')} {c.createdAt.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}

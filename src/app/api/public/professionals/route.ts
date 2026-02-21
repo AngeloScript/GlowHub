@@ -29,7 +29,8 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
         success: true,
-        data: professionals.map(p => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: professionals.map((p: any) => ({
             id: p.id,
             name: p.name,
             phone: p.phone,

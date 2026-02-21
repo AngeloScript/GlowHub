@@ -34,11 +34,14 @@ export async function GET(req: NextRequest) {
     })
 
     const data = categories
-        .filter(c => c.services.length > 0)
-        .map(c => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .filter((c: any) => c.services.length > 0)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((c: any) => ({
             id: c.id,
             name: c.name,
-            services: c.services.map(s => ({
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            services: c.services.map((s: any) => ({
                 ...s,
                 price: Number(s.price),
             })),

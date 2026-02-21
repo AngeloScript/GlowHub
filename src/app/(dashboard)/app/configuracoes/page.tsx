@@ -17,7 +17,8 @@ export default async function ConfiguracoesPage() {
     ])
 
     // Prisma Decimal não é serializável para Client Components — converter para number
-    const services = rawServices.map(s => ({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const services = rawServices.map((s: any) => ({
         ...s,
         price: Number(s.price),
     }))
