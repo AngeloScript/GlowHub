@@ -74,7 +74,7 @@ export async function getSalonAgenda(date: string) {
         colorCode: string | null
     }>
 
-    const blockouts = blockoutsData.map((b) => ({
+    const blockouts = blockoutsData.map((b: typeof blockoutsData[number]) => ({
         id: b.id,
         professionalId: b.professionalId,
         startTime: b.startTime,
