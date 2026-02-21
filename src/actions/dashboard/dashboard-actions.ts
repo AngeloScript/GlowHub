@@ -152,8 +152,10 @@ async function getProfessionalMetrics(userId: string, tenantId: string, todaySta
         _sum: { amount: true }
     })
 
-    const pendingCommissionsTotal = Number(myCommissionsMonth.find((c) => c.status === 'PENDING')?._sum.amount) || 0
-    const paidCommissionsTotal = Number(myCommissionsMonth.find((c) => c.status === 'PAID')?._sum.amount) || 0
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pendingCommissionsTotal = Number(myCommissionsMonth.find((c: any) => c.status === 'PENDING')?._sum.amount) || 0
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const paidCommissionsTotal = Number(myCommissionsMonth.find((c: any) => c.status === 'PAID')?._sum.amount) || 0
 
     const myServicesToday = await db.tabItem.count({
         where: {
