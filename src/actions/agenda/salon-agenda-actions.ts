@@ -52,7 +52,7 @@ export async function getSalonAgenda(date: string) {
         }>>
     ])
 
-    const appointments = appointmentsData.map(a => ({
+    const appointments = appointmentsData.map((a: typeof appointmentsData[number]) => ({
         id: a.id,
         professionalId: a.professionalId,
         startTime: a.startTime,
