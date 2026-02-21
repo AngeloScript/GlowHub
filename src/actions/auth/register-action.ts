@@ -31,7 +31,7 @@ export async function registerAction(formData: FormData) {
 
         // Transação Principal: Criação do Onboarding Fricção Zero
         // Criamos o Salão (Tenant) e o Admin principal de uma só vez
-        const result = await db.$transaction(async (tx) => {
+        const result = await db.$transaction(async (tx: Parameters<Parameters<typeof db.$transaction>[0]>[0]) => {
             // 1. Cria a Conta Master (Tenant)
             const newTenant = await tx.tenant.create({
                 data: {
