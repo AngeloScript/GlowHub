@@ -2,10 +2,10 @@
 
 import { db, createTenantClient } from '@/lib/db'
 import { getSession } from '@/lib/auth'
-import { PaymentMethod, TabStatus } from '@prisma/client'
+import { TabStatus } from '@prisma/client'
 
 type CheckoutPaymentInput = {
-    method: PaymentMethod
+    method: 'CREDIT' | 'DEBIT' | 'PIX' | 'CASH' | string
     amount: number
 }
 
@@ -70,7 +70,8 @@ export async function checkoutTab(tabId: string, payments: CheckoutPaymentInput[
                         tabId: tab.id,
                         type: 'INCOME',
                         amount: payment.amount,
-                        paymentMethod: payment.method,
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        paymentMethod: payment.method as any,
                         status: 'COMPLETED'
                     }
                 })

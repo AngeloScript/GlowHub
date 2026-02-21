@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { X, Plus, Receipt, Trash2, Search } from 'lucide-react'
 import { openTab, addTabItem } from '@/actions/tabs/tab-actions'
-import { PaymentMethod } from '@prisma/client'
 
 // --- Mock Services for Combobox ---
 const MOCK_SERVICES = [
@@ -13,7 +12,7 @@ const MOCK_SERVICES = [
     { id: '4', name: 'Limpeza de Pele (R$ 120)', price: 120 },
 ]
 
-type PaymentLine = { id: number, method: PaymentMethod, amount: number }
+type PaymentLine = { id: number, method: 'CREDIT_CARD' | 'DEBIT_CARD' | 'PIX' | 'CASH' | string, amount: number }
 
 type TabSlideOverProps = {
     isOpen: boolean
