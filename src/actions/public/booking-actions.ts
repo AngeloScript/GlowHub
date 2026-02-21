@@ -160,11 +160,13 @@ export async function getPublicAvailability({
         }
 
         // Descobrir quais profissionais estão livres neste bloco exato
-        const availableProfs = professionals.filter(prof => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const availableProfs = professionals.filter((prof: any) => {
             // (Opcional) Poderia checar os workingHours individuais do profissional aqui
 
             // Check conflicts
-            const hasConflict = existingAppointments.some(appt => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const hasConflict = existingAppointments.some((appt: any) => {
                 if (appt.professionalId !== prof.id) return false
 
                 // Conflito acontece se:
@@ -183,7 +185,8 @@ export async function getPublicAvailability({
         if (availableProfs.length > 0) {
             availableSlots.push({
                 time: currentSlot.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-                professionals: availableProfs.map(p => p.id)
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                professionals: availableProfs.map((p: any) => p.id)
             })
         }
 
