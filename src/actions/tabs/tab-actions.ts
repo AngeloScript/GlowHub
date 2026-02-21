@@ -46,7 +46,8 @@ export async function addTabItem(formData: FormData) {
         if (!service) return { error: 'Serviço inexistente.' }
 
         // 2.2 Garante a inserção atômica re-somando a Guia Principal na mesma Transaction RLS
-        const result = await tenantDb.$transaction(async (tx) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const result = await tenantDb.$transaction(async (tx: any) => {
 
             // Insere o Item
             const newItem = await tx.tabItem.create({

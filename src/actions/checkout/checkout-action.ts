@@ -47,7 +47,8 @@ export async function checkoutTab(tabId: string, payments: CheckoutPaymentInput[
         // Se o cálculo da comissão der falha, NADA é salvo (rollback total).
 
         // (Transação tipada na instância virtual via Extension)
-        const result = await db.$transaction(async (tx) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const result = await db.$transaction(async (tx: any) => {
             // Objeto tx não injeta magicamente o RLS na extensão, então precisaremos 
             // ou passar o RLS explicitamente, ou usar a instância crua com cuidado
             // Como o RLS está protegendo requisições, `tenantDb` é um wrapper.
